@@ -475,3 +475,8 @@ PRODUCT_COPY_FILES += \
 
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)
+
+PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/624000.ufshc/by-name/system
+$(call inherit-product, build/target/product/verity.mk)
+PRODUCT_PACKAGES += \
+    slideshow
