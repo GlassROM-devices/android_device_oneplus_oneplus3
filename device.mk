@@ -100,7 +100,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/bootdevice/by-name/config \
     persist.radio.multisim.config=dsds
 
-# Haters gonna hate..
 PRODUCT_CHARACTERISTICS := nosdcard
 
 # Alipay
