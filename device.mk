@@ -509,3 +509,6 @@ PRODUCT_BOOT_JARS += \
 
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)
+
+# Inherit dm-verity configs
+$(call inherit-product, build/target/product/verity.mk)
