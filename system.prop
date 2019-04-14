@@ -244,3 +244,10 @@ ro.vendor.display.paneltype=1
 ro.vendor.display.foss=1
 vendor.display.foss.config=1
 vendor.display.foss.config_path=/vendor/etc/FOSSConfig.xml
+
+# Dex2oat limits
+dalvik.vm.boot-dex2oat-threads=4
+dalvik.vm.dex2oat-threads=4
+dalvik.vm.image-dex2oat-threads=4
+dalvik.vm.dex2oat-filter=everything
+dalvik.vm.image-dex2oat-filter=everything
