@@ -95,7 +95,6 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 BOARD_NEEDS_CHARGER_IN_RECOVERY := true
 TARGET_EXFAT_DRIVER := sdfat
-TW_NO_EXFAT_FUSE := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
