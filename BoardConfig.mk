@@ -1,5 +1,5 @@
-#
-# Copyright (C) 2017 The Android Open Source Project
+# Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,8 +43,9 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 
 # Crypto
-TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
+TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/cryptfs_hw
 TARGET_HW_DISK_ENCRYPTION := true
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff androidboot.selinux=permissive
@@ -52,7 +53,10 @@ BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x02000000
 BOARD_RAMDISK_OFFSET     := 0x02200000
-TARGET_PREBUILT_KERNEL := device/oneplus/oneplus3/Image.gz-dtb
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_KERNEL_SOURCE := kernel/oneplus/msm8996
+TARGET_KERNEL_CONFIG := lineageos_oneplus3_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := /home/suzumiya/android_kernel_oneplus_msm8996/aarch64-linux-gnu/bin/aarch64-linux-gnu-
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_oneplus3
@@ -64,15 +68,18 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3154116608
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 57588281344 # 57588297728 - 16384
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 57588281344
+BOARD_USERDATAEXTRAIMAGE_PARTITION_SIZE := 121568194560
+BOARD_USERDATAEXTRAIMAGE_PARTITION_NAME := 128G
 BOARD_FLASH_BLOCK_SIZE := 262144
 
 # Recovery
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
+RECOVERY_VARIANT := twrp
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
@@ -86,3 +93,11 @@ TW_INCLUDE_NTFS_3G := true
 TW_IGNORE_MISC_WIPE_DATA := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
+BOARD_NEEDS_CHARGER_IN_RECOVERY := true
+TARGET_EXFAT_DRIVER := sdfat
+TW_NO_EXFAT_FUSE := true
+
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy

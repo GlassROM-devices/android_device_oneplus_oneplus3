@@ -1,5 +1,6 @@
 /*
-   Copyright (C) 2017-2018 The Android Open Source Project
+   Copyright (c) 2016, The CyanogenMod Project
+             (c) 2017-2018, The LineageOS Project
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -27,32 +28,48 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cstdlib>
-#include <unistd.h>
-#include <fcntl.h>
 #include <android-base/logging.h>
 #include <android-base/properties.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 
 #include "property_service.h"
-#include "log.h"
+#include "vendor_init.h"
 
-namespace android {
-namespace init {
+using android::init::property_set;
+
+void property_override(char const prop[], char const value[])
+{
+    prop_info *pi;
+
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
+
+void property_override_dual(char const system_prop[], char const vendor_prop[], char const value[])
+{
+    property_override(system_prop, value);
+    property_override(vendor_prop, value);
+}
 
 void load_op3(const char *model) {
-    property_set("ro.product.model", model);
-    property_set("ro.build.product", "OnePlus3");
-    property_set("ro.product.device", "OnePlus3");
-    property_set("ro.vendor.product.device", "OnePlus3");
-    property_set("ro.display.series", "OnePlus 3");
+    property_override_dual("ro.product.model", "ro.product.vendor.model", model);
+    property_override("ro.build.product", "OnePlus3");
+    property_override_dual("ro.product.device", "ro.product.vendor.device", "OnePlus3");
+    property_override("ro.build.description", "OnePlus3-user 8.0.0 OPR1.170623.032 31 release-keys");
+    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "OnePlus/OnePlus3/OnePlus3:8.0.0/OPR1.170623.032/02281230:user/release-keys");
 }
 
 void load_op3t(const char *model) {
-    property_set("ro.product.model", model);
-    property_set("ro.build.product", "OnePlus3");
-    property_set("ro.product.device", "OnePlus3T");
-    property_set("ro.vendor.product.device", "OnePlus3T");
-    property_set("ro.display.series", "OnePlus 3T");
+    property_override_dual("ro.product.model", "ro.product.vendor.model", model);
+    property_override("ro.build.product", "OnePlus3");
+    property_override_dual("ro.product.device", "ro.product.vendor.device", "OnePlus3T");
+    property_override("ro.build.description", "OnePlus3-user 8.0.0 OPR1.170623.032 31 release-keys");
+    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "OnePlus/OnePlus3/OnePlus3T:8.0.0/OPR1.170623.032/02281230:user/release-keys");
+    property_set("ro.power_profile.override", "power_profile_3t");
 }
 
 void vendor_load_properties() {
@@ -63,27 +80,35 @@ void vendor_load_properties() {
     case 31:
         /* China / North America model */
         load_op3("ONEPLUS A3000");
+        property_set("ro.telephony.default_network", "22");
+        property_set("telephony.lteOnCdmaDevice", "1");
+        property_set("persist.radio.force_on_dc", "true");
         break;
     case 21:
         /* Europe / Asia model */
         load_op3("ONEPLUS A3003");
+        property_set("ro.telephony.default_network", "9");
         break;
     case 12:
         /* China model */
         load_op3t("ONEPLUS A3010");
+        property_set("ro.telephony.default_network", "22");
+        property_set("telephony.lteOnCdmaDevice", "1");
+        property_set("persist.radio.force_on_dc", "true");
         break;
     case 22:
         /* Europe / Asia model */
         load_op3t("ONEPLUS A3003");
+        property_set("ro.telephony.default_network", "9");
         break;
     case 32:
         /* North America model */
         load_op3t("ONEPLUS A3000");
+        property_set("ro.telephony.default_network", "22");
+        property_set("telephony.lteOnCdmaDevice", "1");
+        property_set("persist.radio.force_on_dc", "true");
         break;
     default:
         LOG(ERROR) << __func__ << ": unexcepted rf version!";
     }
 }
-
-}  // namespace init
-}  // namespace android
