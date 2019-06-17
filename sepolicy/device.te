@@ -1,3 +1,2 @@
 type fpc1020_device, dev_type;
 type dash_device, dev_type;
-type metadatareserve2_block_device, dev_type;
