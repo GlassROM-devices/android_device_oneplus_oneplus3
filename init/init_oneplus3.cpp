@@ -59,8 +59,8 @@ void load_op3(const char *model) {
     property_override_dual("ro.product.model", "ro.product.vendor.model", model);
     property_override("ro.build.product", "OnePlus3");
     property_override_dual("ro.product.device", "ro.product.vendor.device", "OnePlus3");
-    property_override("ro.build.description", "OnePlus3-user 8.0.0 OPR1.170623.032 31 release-keys");
-    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "OnePlus/OnePlus3/OnePlus3:8.0.0/OPR1.170623.032/02281230:user/release-keys");
+    property_override("ro.build.description", "OnePlus3-user 9 PKQ1.181203.001 1905251415 release-keys");
+    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "OnePlus/OnePlus3/OnePlus3:9/PKQ1.181203.001/1905251415:user/release-keys");
     property_set("ro.display.series", "OnePlus 3");
 }
 
@@ -68,8 +68,8 @@ void load_op3t(const char *model) {
     property_override_dual("ro.product.model", "ro.product.vendor.model", model);
     property_override("ro.build.product", "OnePlus3");
     property_override_dual("ro.product.device", "ro.product.vendor.device", "OnePlus3T");
-    property_override("ro.build.description", "OnePlus3-user 8.0.0 OPR1.170623.032 31 release-keys");
-    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "OnePlus/OnePlus3/OnePlus3T:8.0.0/OPR1.170623.032/02281230:user/release-keys");
+    property_override("ro.build.description", "OnePlus3-user 9 PKQ1.181203.001 1905250152 release-keys");
+    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "OnePlus/OnePlus3/OnePlus3T:9/PKQ1.181203.001/1905250152:user/release-keys");
     property_set("ro.power_profile.override", "power_profile_3t");
     property_set("ro.display.series", "OnePlus 3T");
 }
@@ -82,33 +82,22 @@ void vendor_load_properties() {
     case 31:
         /* China / North America model */
         load_op3("ONEPLUS A3000");
-        property_set("ro.telephony.default_network", "22");
-        property_set("telephony.lteOnCdmaDevice", "1");
-        property_set("persist.radio.force_on_dc", "true");
         break;
     case 21:
         /* Europe / Asia model */
         load_op3("ONEPLUS A3003");
-        property_set("ro.telephony.default_network", "9");
         break;
     case 12:
         /* China model */
         load_op3t("ONEPLUS A3010");
-        property_set("ro.telephony.default_network", "22");
-        property_set("telephony.lteOnCdmaDevice", "1");
-        property_set("persist.radio.force_on_dc", "true");
         break;
     case 22:
         /* Europe / Asia model */
         load_op3t("ONEPLUS A3003");
-        property_set("ro.telephony.default_network", "9");
         break;
     case 32:
         /* North America model */
         load_op3t("ONEPLUS A3000");
-        property_set("ro.telephony.default_network", "22");
-        property_set("telephony.lteOnCdmaDevice", "1");
-        property_set("persist.radio.force_on_dc", "true");
         break;
     default:
         LOG(ERROR) << __func__ << ": unexcepted rf version!";
