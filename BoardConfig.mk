@@ -56,7 +56,7 @@ BOARD_RAMDISK_OFFSET     := 0x02200000
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8996
 TARGET_KERNEL_CONFIG := lineageos_oneplus3_defconfig
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := /home/suzumiya/android_kernel_oneplus_msm8996/aarch64-linux-gnu/bin/aarch64-linux-gnu-
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := /home/suzumiya/mount/toolchain/bin/aarch64-linux-gnu-
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_oneplus3
@@ -100,3 +100,6 @@ TARGET_EXFAT_DRIVER := sdfat
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
+
+TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 1920
