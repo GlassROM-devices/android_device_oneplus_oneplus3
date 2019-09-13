@@ -1,10 +1,10 @@
 diff --git a/recovery.fstab b/recovery.fstab
-index def5548..921f785 100644
+index 0e0854a..03b170d 100644
 --- a/recovery.fstab
 +++ b/recovery.fstab
-@@ -11,6 +11,8 @@
- /recovery		emmc	/dev/block/bootdevice/by-name/recovery						flags=backup=1
+@@ -13,6 +13,8 @@
  /system			ext4	/dev/block/bootdevice/by-name/system
+ /system_root			ext4	/dev/block/bootdevice/by-name/system flags=fsflags=ro
  /system_image	emmc	/dev/block/bootdevice/by-name/system
 +/vendor			ext4	/dev/block/bootdevice/by-name/vendor flags=backup=1;display="Vendor"
 +/vendor_image	emmc	/dev/block/bootdevice/by-name/vendor      flags=backup=1;display="Vendor"
