@@ -58,7 +58,8 @@ TARGET_2ND_CPU_VARIANT := kryo
 TARGET_USES_64_BIT_BINDER := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=none quiet quiet androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 pm.sleep_mode=0
+BOARD_KERNEL_CMDLINE := console=none quiet quiet androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff loop.max_part=7 pm.sleep_mode=0
+BOARD_KERNEL_CMDLINE += androidboot.selinux=enforcing
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x02000000
@@ -66,7 +67,6 @@ BOARD_RAMDISK_OFFSET     := 0x02200000
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8996
 TARGET_KERNEL_CONFIG := lineageos_oneplus3_defconfig
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := /home/suzumiya/mount/toolchain/bin/aarch64-linux-gnu-
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
@@ -165,7 +165,7 @@ USE_DEVICE_SPECIFIC_GPS := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_oneplus3
+TARGET_INIT_VENDOR_LIB := //$(PLATFORM_PATH):libinit_oneplus3
 TARGET_RECOVERY_DEVICE_MODULES := libinit_oneplus3
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 
@@ -228,6 +228,11 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(PLATFORM_PATH)/sepolicy/public
 BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
+# Shims
+TARGET_LD_SHIM_LIBS := \
+    /system/lib/libui.so|libui_shim.so \
+    /system/lib64/libui.so|libui_shim.so
+
 # Thermal
 USE_DEVICE_SPECIFIC_THERMAL := true
 
@@ -249,6 +254,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_P2P := "p2p"
+WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # inherit from the proprietary version

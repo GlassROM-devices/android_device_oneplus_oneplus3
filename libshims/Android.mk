@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2019 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,11 +19,10 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-	$(call all-Iaidl-files-under, src) \
-    $(call all-java-files-under, src)
+	GraphicBuffer.cpp
 
-LOCAL_MODULE := org.ifaa.android.manager
+LOCAL_SHARED_LIBRARIES := libui
+LOCAL_MODULE := libui_shim
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 
-include $(BUILD_JAVA_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
