@@ -1,5 +1,6 @@
 package org.ifaa.android.manager;
 
+import android.annotation.UnsupportedAppUsage;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -56,9 +57,8 @@ public class IFAAManagerFactory  extends IFAAManagerV3 {
     public int startBIOManager(Context context, int authType) {
         try {
             Slog.e(TAG, "startBIOManager" + context);
-            Intent intent = new Intent();
+            Intent intent = new Intent("android.settings.FINGERPRINT_SETTINGS");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$SecuritySettingsActivity"));
             Slog.e(TAG, "OOS context" + context);
             context.startActivity(intent);
          } catch (ActivityNotFoundException e) {
@@ -79,6 +79,7 @@ public class IFAAManagerFactory  extends IFAAManagerV3 {
         return 3;
     }
 
+    @UnsupportedAppUsage
     public static IFAAManagerV3 getIFAAManager(Context context, int authType) {
          Slog.e(TAG, "getIFAAManager");
         if(mIFAAManagerFactory == null) {
