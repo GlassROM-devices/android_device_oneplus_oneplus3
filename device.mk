@@ -563,3 +563,6 @@ $(call inherit-product, device/oppo/common/common.mk)
 # Inherit dm-verity configs
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/624000.ufshc/by-name/system
+
+# APEX
+PRODUCT_PROPERTY_OVERRIDES += ro.apex.updatable=false
